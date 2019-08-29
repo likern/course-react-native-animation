@@ -1,3 +1,7 @@
+# Add .vscode/.react to ignore list
+.vscode/.react/
+
+
 # OSX
 #
 .DS_Store
