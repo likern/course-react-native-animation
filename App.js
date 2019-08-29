@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TouchableWithoutFeedback, Animated} from 'react-native';
+import {Text, TouchableWithoutFeedback, Animated} from 'react-native';
 import styled from 'styled-components/native';
 
 const StyledView = styled.View`
@@ -15,28 +15,28 @@ const StyledBox = styled.View`
 `;
 
 const App = () => {
-  const animation = new Animated.Value(0);
+  const animation = new Animated.Value(1);
   const [animatedStyles, setAnimatedStyles] = useState({
     transform: [
       {
-        translateY: animation,
+        scale: animation,
       },
     ],
   });
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: 300,
+      toValue: 2,
       duration: 1500,
-    }).start(() => {
-      animation.setValue(0);
-    });
+    }).start(() => {});
   };
   return (
     <StyledView>
       <TouchableWithoutFeedback onPress={startAnimation}>
         <Animated.View style={animatedStyles}>
-          <StyledBox />
+          <StyledBox>
+            <Text>This side forward</Text>
+          </StyledBox>
         </Animated.View>
       </TouchableWithoutFeedback>
     </StyledView>
