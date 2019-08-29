@@ -15,19 +15,21 @@ const StyledBox = styled.View`
 `;
 
 const App = () => {
-  const [animation, setAnimation] = useState(new Animated.Value(1));
-  const [animatedStyles, setAnimatedStyles] = useState({opacity: animation});
+  const animation = new Animated.Value(0);
+  const [animatedStyles, setAnimatedStyles] = useState({
+    transform: [
+      {
+        translateY: animation,
+      },
+    ],
+  });
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: 0,
-      duration: 350,
+      toValue: 300,
+      duration: 1500,
     }).start(() => {
-      console.log('First animation stopped!');
-      Animated.timing(animation, {
-        toValue: 1,
-        duration: 500,
-      }).start();
+      animation.setValue(0);
     });
   };
   return (
