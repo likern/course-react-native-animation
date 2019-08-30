@@ -9,31 +9,33 @@ const StyledView = styled.View`
 `;
 
 const StyledBox = styled.View`
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* width: 150; */
+  right: 0;
+  height: 150;
   background-color: tomato;
 `;
 
 const App = () => {
-  const animation = new Animated.Value(150);
+  const animation = new Animated.Value(0);
   const [animatedStyles, setAnimatedStyles] = useState({
-    width: animation,
-    height: animation,
+    top: animation,
+    left: animation,
+    right: animation,
   });
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: 300,
+      toValue: 40,
       duration: 1500,
     }).start(() => {});
   };
   return (
     <StyledView>
       <TouchableWithoutFeedback onPress={startAnimation}>
-        <StyledBox as={Animated.View} style={animatedStyles}>
-          <Text>
-            this is a really long text. This is a really long text. This is a
-            really long text.
-          </Text>
-        </StyledBox>
+        <StyledBox as={Animated.View} style={animatedStyles}></StyledBox>
       </TouchableWithoutFeedback>
     </StyledView>
   );
