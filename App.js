@@ -9,33 +9,52 @@ const StyledView = styled.View`
 `;
 
 const StyledBox = styled.View`
-  position: absolute;
-  left: 0;
-  top: 0;
-  /* width: 150; */
-  right: 0;
+  /* position: absolute; */
+  /* left: 0; */
+  /* top: 0; */
+  width: 150;
+  /* right: 0; */
   height: 150;
   background-color: tomato;
 `;
 
 const App = () => {
   const animation = new Animated.Value(0);
+  const boxInterpolation = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['rgb(255,99,71)', 'rgb(99,71,255)'],
+  });
+  const colorInterpolation = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['rgb(99,71,255)', 'rgb(255,99,71)'],
+  });
+
+  const textAnimatedStyle = {
+    color: colorInterpolation,
+  };
   const [animatedStyles, setAnimatedStyles] = useState({
-    top: animation,
-    left: animation,
-    right: animation,
+    backgroundColor: boxInterpolation,
   });
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: 40,
+      toValue: 1,
       duration: 1500,
-    }).start(() => {});
+    }).start(() => {
+      Animated.timing(animation, {
+        toValue: 0,
+        duration: 1500,
+      });
+    });
   };
   return (
     <StyledView>
       <TouchableWithoutFeedback onPress={startAnimation}>
-        <StyledBox as={Animated.View} style={animatedStyles}></StyledBox>
+        <StyledBox as={Animated.View} style={animatedStyles}>
+          <Animated.Text style={textAnimatedStyle}>
+            Hello Animation
+          </Animated.Text>
+        </StyledBox>
       </TouchableWithoutFeedback>
     </StyledView>
   );
