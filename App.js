@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, TouchableWithoutFeedback, Animated} from 'react-native';
+import {Text, TouchableWithoutFeedback, Animated, Easing} from 'react-native';
 import styled from 'styled-components/native';
 
 const StyledView = styled.View`
@@ -12,34 +12,24 @@ const StyledBox = styled.View`
   /* position: absolute; */
   /* left: 0; */
   /* top: 0; */
-  /* width: '20%'; */
+  width: 150;
   /* right: 0; */
-  /* height: '20%'; */
+  height: 150;
   background-color: tomato;
 `;
 
 const App = () => {
   const animation = new Animated.Value(0);
 
-  const widthInterpolate = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['20%', '50%'],
-  });
-
-  const heightInterpolate = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['20%', '30%'],
-  });
-
   const [animatedStyles, setAnimatedStyles] = useState({
-    width: widthInterpolate,
-    height: heightInterpolate,
+    translateY: animation,
   });
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: 1,
+      toValue: 200,
       duration: 1500,
+      easing: Easing.bezier(0.06, 1, 0.86, 0.28),
     }).start();
   };
   return (
