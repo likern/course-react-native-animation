@@ -12,25 +12,33 @@ const StyledBox = styled.View`
   /* position: absolute; */
   /* left: 0; */
   /* top: 0; */
-  width: 150;
+  /* width: '20%'; */
   /* right: 0; */
-  height: 150;
+  /* height: '20%'; */
   background-color: tomato;
 `;
 
 const App = () => {
   const animation = new Animated.Value(0);
-  const rotateInterpolate = animation.interpolate({
-    inputRange: [0, 360],
-    outputRange: ['0deg', '-360deg'],
+
+  const widthInterpolate = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['20%', '50%'],
   });
+
+  const heightInterpolate = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['20%', '30%'],
+  });
+
   const [animatedStyles, setAnimatedStyles] = useState({
-    transform: [{rotate: rotateInterpolate}],
+    width: widthInterpolate,
+    height: heightInterpolate,
   });
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: 360,
+      toValue: 1,
       duration: 1500,
     }).start();
   };
