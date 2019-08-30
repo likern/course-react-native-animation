@@ -20,40 +20,25 @@ const StyledBox = styled.View`
 
 const App = () => {
   const animation = new Animated.Value(0);
-  const boxInterpolation = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['rgb(255,99,71)', 'rgb(99,71,255)'],
+  const rotateInterpolate = animation.interpolate({
+    inputRange: [0, 360],
+    outputRange: ['0deg', '-360deg'],
   });
-  const colorInterpolation = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['rgb(99,71,255)', 'rgb(255,99,71)'],
-  });
-
-  const textAnimatedStyle = {
-    color: colorInterpolation,
-  };
   const [animatedStyles, setAnimatedStyles] = useState({
-    backgroundColor: boxInterpolation,
+    transform: [{rotate: rotateInterpolate}],
   });
 
   const startAnimation = () => {
     Animated.timing(animation, {
-      toValue: 1,
+      toValue: 360,
       duration: 1500,
-    }).start(() => {
-      Animated.timing(animation, {
-        toValue: 0,
-        duration: 1500,
-      });
-    });
+    }).start();
   };
   return (
     <StyledView>
       <TouchableWithoutFeedback onPress={startAnimation}>
         <StyledBox as={Animated.View} style={animatedStyles}>
-          <Animated.Text style={textAnimatedStyle}>
-            Hello Animation
-          </Animated.Text>
+          <Text>Some text inside box</Text>
         </StyledBox>
       </TouchableWithoutFeedback>
     </StyledView>
